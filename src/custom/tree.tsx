@@ -1,6 +1,6 @@
 import './tree.css';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Data, temp } from './tree-data';
 import { runInAction, toJS } from 'mobx';
 import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
@@ -13,6 +13,7 @@ interface TreeProps {
   onToggle?: (node: Data, value: boolean) => void;
   onExpand?: (node: Data) => void;
   onCollapse?: (node: Data) => void;
+  onContextMenu?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, node: Data) => void;
 }
 
 interface TreeNodeProps {
@@ -21,21 +22,24 @@ interface TreeNodeProps {
   onToggle?: (node: Data, value: boolean) => void;
   onExpand?: (node: Data) => void;
   onCollapse?: (node: Data) => void;
+  onContextMenu?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, node: Data) => void;
+  localDepth: number;
 }
 
 const TreeNodeComponent: React.FC<TreeNodeProps> = observer(
-  ({ node, onToggle, onClick, onCollapse, onExpand }) => {
-    const handleToggle = () => {
-      const expandStatus = !node.isExpanded;
+  ({ node, onToggle, onClick, onCollapse, onExpand, localDepth, onContextMenu }) => {
+    const handleToggle = useCallback(
+      (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        e.stopPropagation();
+        const expandStatus = !node.isExpanded;
 
-      onToggle?.(node, expandStatus);
+        onToggle?.(node, expandStatus);
 
-      expandStatus ? onExpand?.(node) : onCollapse?.(node);
-    };
-
-    const onNodeClick = (node: Data) => {
-      onClick?.(node);
-    };
+        expandStatus ? onExpand?.(node) : onCollapse?.(node);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [node]
+    );
 
     return (
       <div className="custom-tree-node">
@@ -43,59 +47,78 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = observer(
           className={`custom-tree-node-content flex-help ${
             node.isSelected ? 'custom-tree-node-content-selected' : ''
           }`}
+          style={{ paddingLeft: localDepth * 10 }}
+          onClick={() => onClick?.(node)}
+          onContextMenu={e => onContextMenu?.(e, node)}
         >
-          <span className="flex-help" onClick={handleToggle} style={{ cursor: 'pointer' }}>
-            {node.isExpanded ? <BiChevronDown size={20} /> : <BiChevronRight size={20} />}
+          {node.isFile ? (
+            <span style={{ width: '20px' }}></span>
+          ) : (
+            <span className="flex-help" onClick={handleToggle} style={{ cursor: 'pointer' }}>
+              {node.isExpanded ? <BiChevronDown size={20} /> : <BiChevronRight size={20} />}
+            </span>
+          )}
+
+          <span className="flex-help">
+            {node.isFile ? (
+              <AiFillFile color="#6bc7f6" size={20} />
+            ) : (
+              <AiFillFolder color="#f6cf60" size={20} />
+            )}
           </span>
 
-          {/* <div>
-            {node.isFile ? <AiFillFile color="#6bc7f6" /> : <AiFillFolder color="#f6cf60" />}
-          </div> */}
-
-          <div style={{ flex: 1 }} onClick={() => onNodeClick(node)}>
-            {node.name}
-          </div>
+          <div style={{ flex: 1, paddingLeft: '5px' }}>{node.name}</div>
         </div>
-        {node.isExpanded && node.children !== undefined && node.children.length > 0 && (
-          <div style={{ marginLeft: '20px' }}>
-            {node.children.map(child => (
-              <TreeNodeComponent
-                key={child.id}
-                node={child}
-                onToggle={onToggle}
-                onClick={onClick}
-                onCollapse={onCollapse}
-                onExpand={onExpand}
-              />
-            ))}
-          </div>
-        )}
+
+        {node.isExpanded &&
+          node.children !== undefined &&
+          node.children.length > 0 &&
+          node.children.map(child => (
+            <TreeNodeComponent
+              localDepth={localDepth + 1}
+              key={child.id}
+              node={child}
+              onToggle={onToggle}
+              onClick={onClick}
+              onCollapse={onCollapse}
+              onExpand={onExpand}
+              onContextMenu={onContextMenu}
+            />
+          ))}
       </div>
     );
   }
 );
 
-const Tree: React.FC<TreeProps> = observer(({ nodes, onToggle, onClick, onCollapse, onExpand }) => {
-  return (
-    <>
-      {nodes.map(node => (
-        <TreeNodeComponent
-          key={node.id}
-          node={node}
-          onToggle={onToggle}
-          onClick={onClick}
-          onCollapse={onCollapse}
-          onExpand={onExpand}
-        />
-      ))}
-    </>
-  );
-});
+const Tree: React.FC<TreeProps> = observer(
+  ({ nodes, onToggle, onClick, onCollapse, onExpand, onContextMenu }) => {
+    return (
+      <>
+        {nodes.map(node => (
+          <TreeNodeComponent
+            localDepth={0}
+            key={node.id}
+            node={node}
+            onToggle={onToggle}
+            onClick={onClick}
+            onCollapse={onCollapse}
+            onExpand={onExpand}
+            onContextMenu={onContextMenu}
+          />
+        ))}
+      </>
+    );
+  }
+);
 
 export const CustomTree: React.FC = () => {
   return (
     <>
+      <button onClick={() => console.clear()}>clear console</button>
       <button onClick={() => console.log(toJS(temp.state))}>log state</button>
+      <button onClick={() => console.log(JSON.stringify(toJS(temp.state), null, 2))}>
+        log state json
+      </button>
       <button onClick={() => temp.delete('100')}>delete id 100</button>
       <button onClick={() => temp.delete('3')}>delete id 3</button>
       <button onClick={() => runInAction(() => temp.state.push(...getTestData()))}>
@@ -131,6 +154,10 @@ export const CustomTree: React.FC = () => {
               n.isSelected = false;
             }
           });
+        }}
+        onContextMenu={(e, node) => {
+          e.preventDefault();
+          console.log('Right Click', e.pageX, e.pageY, toJS(node));
         }}
       />
     </>
