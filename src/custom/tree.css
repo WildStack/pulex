@@ -1,0 +1,19 @@
+.flex-help {
+  display: flex;
+  align-items: center;
+}
+
+/* ------------------------------------------ */
+
+.custom-tree-node {
+  cursor: default;
+  user-select: none;
+}
+
+.custom-tree-node-content:not(.custom-tree-node-content-selected):hover {
+  background-color: rgba(128, 128, 128, 0.41);
+}
+
+.custom-tree-node-content-selected {
+  background-color: rgba(128, 128, 128, 0.8);
+}
