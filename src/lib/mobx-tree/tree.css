@@ -1,28 +1,27 @@
-.wildstack-mobx-tree {
+.pulex-mobx-tree {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.wildstack-mobx-tree * {
+.pulex-mobx-tree * {
   user-select: none;
 }
 
-.wildstack-mobx-tree .wildstack-mobx-tree-node {
+.pulex-mobx-tree .pulex-mobx-tree-node {
   cursor: default;
   user-select: none;
 }
 
-.wildstack-mobx-tree
-  .wildstack-mobx-tree-node-content:not(.wildstack-mobx-tree-node-content-selected):hover {
+.pulex-mobx-tree .pulex-mobx-tree-node-content:not(.pulex-mobx-tree-node-content-selected):hover {
   background-color: rgba(128, 128, 128, 0.41);
 }
 
-.wildstack-mobx-tree .wildstack-mobx-tree-node-content-selected {
+.pulex-mobx-tree .pulex-mobx-tree-node-content-selected {
   background-color: rgba(128, 128, 128, 0.8);
 }
 
-.wildstack-mobx-tree .wildstack-mobx-tree-default-icon {
+.pulex-mobx-tree .pulex-mobx-tree-default-icon {
   width: 20px;
   height: 20px;
   fill: white;
@@ -30,7 +29,7 @@
 
 /* ----------- helper ------------------------------- */
 
-.wildstack-mobx-tree .flex-help {
+.pulex-mobx-tree .flex-help {
   display: flex;
   align-items: center;
 }
