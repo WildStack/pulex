@@ -1,20 +1,29 @@
-import { ReactArgonist } from './big-test';
-import { CustomTree } from './custom/tree';
+import { CustomTree } from './example/with-builtin-class';
+import { CustomTreeUsingCustomModel } from './example/with-custom-class';
+
+import './lib/fluxion-tree/tree.css';
 
 function App() {
   return (
     <>
-      <h1>Vite + React</h1>
+      <div style={{ marginLeft: 20, marginTop: 20 }}>
+        <h2>Custom tree using built in class</h2>
+        <br />
+        <br />
+        <CustomTree />
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h2>Custom tree using custom class</h2>
+        <br />
+        <br />
 
-      <CustomTree />
-      <br />
-      <br />
-      <hr />
-      <br />
-      <br />
-      <br />
-      <br />
-      <ReactArgonist />
+        <CustomTreeUsingCustomModel />
+      </div>
     </>
   );
 }
