@@ -1,4 +1,4 @@
 ## @pulex/core
 
-react typescript complex components
-* Tree component completely integrated to mobx
+component list
+* Mobx tree (Tree component completely integrated to mobx)
