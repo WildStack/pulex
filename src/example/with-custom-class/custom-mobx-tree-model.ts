@@ -1,10 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { FluxionTreeModel } from '../../lib/fluxion-tree';
+import { MobxTreeModel } from '../../lib/mobx-tree';
 
-export class CustomFluxionTreeModel implements FluxionTreeModel {
+export class CustomMobxTreeModel implements MobxTreeModel {
   id: string;
   name: string;
-  children?: FluxionTreeModel[] | undefined;
+  children?: MobxTreeModel[] | undefined;
   isSelected: boolean;
   isExpanded: boolean;
   isFile: boolean;
@@ -17,9 +17,9 @@ export class CustomFluxionTreeModel implements FluxionTreeModel {
   }
 }
 
-export class CustomFluxionTreeModelFactory {
-  static create(params: CustomFluxionTreeModel) {
-    const node = new CustomFluxionTreeModel();
+export class CustomMobxTreeModelFactory {
+  static create(params: CustomMobxTreeModel) {
+    const node = new CustomMobxTreeModel();
 
     runInAction(() => {
       Object.assign(node, params);

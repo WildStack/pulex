@@ -1,21 +1,58 @@
 import { observer } from 'mobx-react-lite';
 import { useCallback } from 'react';
-import { AiFillFile, AiFillFolder } from 'react-icons/ai';
-import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
-import { FluxionTreeNodeProps } from './tree.type';
-import { FluxionTreeModel } from '.';
+import { MobxTreeNodeProps } from './tree.type';
+import { MobxTreeModel } from './tree.model';
+import { ChevronDownIcon, ChevronRightIcon, FileIcon, FolderIcon } from './default-icons';
 
-export const FluxionTreeNode = observer(
-  <T extends FluxionTreeModel>({
+const RenderTypeIcon = <T extends MobxTreeModel>({
+  node,
+  renderTypeIcon,
+}: {
+  node: T;
+  renderTypeIcon?: (node: T) => JSX.Element;
+}) => {
+  if (renderTypeIcon) {
+    return renderTypeIcon(node);
+  }
+
+  if (node.isFile) {
+    return <FileIcon />;
+  }
+
+  return <FolderIcon />;
+};
+
+const RenderArrowIcon = <T extends MobxTreeModel>({
+  node,
+  renderArrowIcon,
+}: {
+  node: T;
+  renderArrowIcon?: (node: T) => JSX.Element;
+}) => {
+  if (renderArrowIcon) {
+    return renderArrowIcon(node);
+  }
+
+  if (node.isExpanded) {
+    return <ChevronDownIcon />;
+  }
+
+  return <ChevronRightIcon />;
+};
+
+export const MobxTreeNode = observer(
+  <T extends MobxTreeModel>({
     node,
+    compact,
+    localDepth,
     onToggle,
     onClick,
     onCollapse,
     onExpand,
-    localDepth,
     onContextMenu,
-    compact,
-  }: FluxionTreeNodeProps<T>) => {
+    renderTypeIcon,
+    renderArrowIcon,
+  }: MobxTreeNodeProps<T>) => {
     const handleToggle = useCallback(
       (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         e.stopPropagation();
@@ -31,12 +68,12 @@ export const FluxionTreeNode = observer(
     );
 
     return (
-      <div className="fluxion-tree-node">
+      <div className="wildstack-mobx-tree-node">
         <div
-          className={`fluxion-tree-node-content flex-help ${
-            node.isSelected ? 'fluxion-tree-node-content-selected' : ''
+          className={`wildstack-mobx-tree-node-content flex-help ${
+            node.isSelected ? 'wildstack-mobx-tree-node-content-selected' : ''
           }`}
-          style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10 }}
+          style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10, whiteSpace: 'nowrap' }}
           onClick={() => onClick?.(node)}
           onContextMenu={e => onContextMenu?.(e, node)}
         >
@@ -44,16 +81,12 @@ export const FluxionTreeNode = observer(
             <span style={{ width: '20px' }}></span>
           ) : (
             <span className="flex-help" onClick={handleToggle} style={{ cursor: 'pointer' }}>
-              {node.isExpanded ? <BiChevronDown size={20} /> : <BiChevronRight size={20} />}
+              <RenderArrowIcon node={node} renderArrowIcon={renderArrowIcon} />
             </span>
           )}
 
           <span className="flex-help">
-            {node.isFile ? (
-              <AiFillFile color="#6bc7f6" size={20} />
-            ) : (
-              <AiFillFolder color="#f6cf60" size={20} />
-            )}
+            <RenderTypeIcon node={node} renderTypeIcon={renderTypeIcon} />
           </span>
 
           <div style={{ flex: 1, paddingLeft: '5px' }}>{node.name}</div>
@@ -62,7 +95,7 @@ export const FluxionTreeNode = observer(
         {node.isExpanded &&
           (node.children?.length ?? 0) > 0 &&
           node?.children?.map(child => (
-            <FluxionTreeNode<T>
+            <MobxTreeNode<T>
               compact={compact}
               localDepth={localDepth + 1}
               key={child.id}
@@ -72,6 +105,8 @@ export const FluxionTreeNode = observer(
               onCollapse={onCollapse}
               onExpand={onExpand}
               onContextMenu={onContextMenu}
+              renderTypeIcon={renderTypeIcon}
+              renderArrowIcon={renderArrowIcon}
             />
           ))}
       </div>

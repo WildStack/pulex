@@ -1,9 +1,9 @@
 import { runInAction, toJS } from 'mobx';
-import { FluxionTree, FluxionTreeModel } from '../../lib/fluxion-tree';
-import { ExampleFluxionTreeState } from './example-fluxion-tree-state';
+import { MobxTree, MobxTreeModel } from '../../lib/mobx-tree';
+import { ExampleMobxTreeState } from './example-mobx-tree-state';
 import { initialData, testData } from './test-data';
 
-const store = new ExampleFluxionTreeState();
+const store = new ExampleMobxTreeState();
 
 export const CustomTree: React.FC = () => {
   const clearConsole = () => {
@@ -40,7 +40,7 @@ export const CustomTree: React.FC = () => {
     });
   };
 
-  const expandNode = (node: FluxionTreeModel) => {
+  const expandNode = (node: MobxTreeModel) => {
     store.updateToggle(node, true);
   };
 
@@ -52,7 +52,7 @@ export const CustomTree: React.FC = () => {
     store.recusive(store.state, n => (n.isExpanded = false));
   };
 
-  const updateName = (node: FluxionTreeModel, newName: string) => {
+  const updateName = (node: MobxTreeModel, newName: string) => {
     store.updateName(node, newName);
   };
 
@@ -77,26 +77,47 @@ export const CustomTree: React.FC = () => {
       <br />
       <br />
 
-      <FluxionTree
-        compact={false}
-        nodes={store.state}
-        onToggle={(node, value) => store.updateToggle(node, value)}
-        onClick={node => {
-          // 1. It is better to select node first for animation speed
-          store.updateIsSelected(node);
+      <h3>Max height 300 px</h3>
+      <div
+        style={{
+          height: 300,
+          width: 400,
+          maxHeight: 300,
+          overflowY: 'auto',
+          overflowX: 'auto',
+          border: '1px solid white',
+          display: 'flex',
+        }}
+      >
+        <MobxTree
+          compact={false}
+          nodes={store.state}
+          onToggle={(node, value) => store.updateToggle(node, value)}
+          onClick={node => {
+            // 1. It is better to select node first for animation speed
+            store.updateIsSelected(node);
 
-          // 2. And then recusrively deselect others except the selected node
-          store.recusive(store.state, n => {
-            if (n.id !== node.id) {
-              n.isSelected = false;
+            // 2. And then recusrively deselect others except the selected node
+            store.recusive(store.state, n => {
+              if (n.id !== node.id) {
+                n.isSelected = false;
+              }
+            });
+          }}
+          onContextMenu={(e, node) => {
+            e.preventDefault();
+            console.log('Right Click', e.pageX, e.pageY, toJS(node));
+          }}
+          renderTypeIcon={node => {
+            if (node.isFile) {
+              return <>FILE</>;
             }
-          });
-        }}
-        onContextMenu={(e, node) => {
-          e.preventDefault();
-          console.log('Right Click', e.pageX, e.pageY, toJS(node));
-        }}
-      />
+
+            return <>FOLDER</>;
+          }}
+          renderArrowIcon={node => (node.isExpanded ? <>&#8595;</> : <>&#8594;</>)}
+        />
+      </div>
     </>
   );
 };

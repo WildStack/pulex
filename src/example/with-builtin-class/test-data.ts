@@ -1,23 +1,23 @@
 import { IObservableArray, observable } from 'mobx';
-import { FluxionTreeModel, FluxionTreeModelFactory } from '../../lib/fluxion-tree';
+import { MobxTreeModel, MobxTreeModelFactory } from '../../lib/mobx-tree';
 
-export const initialData = (): IObservableArray<FluxionTreeModel> => {
+export const initialData = (): IObservableArray<MobxTreeModel> => {
   const arr = [
-    FluxionTreeModelFactory.create({
+    MobxTreeModelFactory.create({
       id: '100',
       name: 'Unread',
       isSelected: false,
       isExpanded: false,
       isFile: false,
       children: [
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'mmmxxxxx',
           name: 'Alice MMMM',
           isSelected: false,
           isExpanded: false,
           isFile: false,
           children: [
-            FluxionTreeModelFactory.create({
+            MobxTreeModelFactory.create({
               id: 'zzz',
               name: 'Alice ZZZ',
               isSelected: false,
@@ -29,14 +29,14 @@ export const initialData = (): IObservableArray<FluxionTreeModel> => {
         }),
       ],
     }),
-    FluxionTreeModelFactory.create({
+    MobxTreeModelFactory.create({
       id: '2',
       name: 'Threads',
       isSelected: false,
       isExpanded: false,
       isFile: true,
     }),
-    FluxionTreeModelFactory.create({
+    MobxTreeModelFactory.create({
       id: '3',
       name: 'Chat Rooms',
       isFile: false,
@@ -48,21 +48,21 @@ export const initialData = (): IObservableArray<FluxionTreeModel> => {
           isExpanded: false,
           isFile: false,
           children: [
-            FluxionTreeModelFactory.create({
+            MobxTreeModelFactory.create({
               id: 'd1',
               name: 'Alice',
               isSelected: false,
               isExpanded: false,
               isFile: true,
             }),
-            FluxionTreeModelFactory.create({
+            MobxTreeModelFactory.create({
               id: 'd2',
               name: 'Bob',
               isSelected: false,
               isExpanded: false,
               isFile: true,
             }),
-            FluxionTreeModelFactory.create({
+            MobxTreeModelFactory.create({
               id: 'd3',
               name: 'Charlie',
               isSelected: false,
@@ -71,14 +71,14 @@ export const initialData = (): IObservableArray<FluxionTreeModel> => {
             }),
           ],
         },
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'c2',
           name: 'Random',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'c3',
           name: 'Open Source Projects',
           isSelected: false,
@@ -89,25 +89,25 @@ export const initialData = (): IObservableArray<FluxionTreeModel> => {
       isSelected: false,
       isExpanded: false,
     }),
-    FluxionTreeModelFactory.create({
+    MobxTreeModelFactory.create({
       id: '4',
       name: 'Direct Messages',
       children: [
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'd1',
           name: 'Alice',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'd2',
           name: 'Bob',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'd3',
           name: 'Charlie',
           isSelected: false,
@@ -124,28 +124,28 @@ export const initialData = (): IObservableArray<FluxionTreeModel> => {
   return observable(arr);
 };
 
-export const testData = (): IObservableArray<FluxionTreeModel> => {
+export const testData = (): IObservableArray<MobxTreeModel> => {
   const arr = [
-    FluxionTreeModelFactory.create({
+    MobxTreeModelFactory.create({
       id: '40',
       name: 'XX',
       isFile: false,
       children: [
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'x1',
           name: 'Alice',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'x2',
           name: 'Bob',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'x3',
           name: 'Charlie',
           isSelected: false,
@@ -156,26 +156,26 @@ export const testData = (): IObservableArray<FluxionTreeModel> => {
       isSelected: true,
       isExpanded: true,
     }),
-    FluxionTreeModelFactory.create({
+    MobxTreeModelFactory.create({
       id: '50',
       name: 'MM',
       isFile: false,
       children: [
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'm1',
           name: 'Alice',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'm2',
           name: 'Bob',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
-        FluxionTreeModelFactory.create({
+        MobxTreeModelFactory.create({
           id: 'm3',
           name: 'Charlie',
           isSelected: false,

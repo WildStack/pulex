@@ -1,29 +1,29 @@
 import { IObservableArray, makeAutoObservable, toJS } from 'mobx';
-import { FluxionTreeModel } from '../../lib/fluxion-tree';
+import { MobxTreeModel } from '../../lib/mobx-tree';
 import { initialData } from './test-data';
 
-export class ExampleFluxionTreeState {
-  public state: IObservableArray<FluxionTreeModel> = initialData();
+export class ExampleMobxTreeState {
+  public state: IObservableArray<MobxTreeModel> = initialData();
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  updateName(node: FluxionTreeModel, value: string) {
+  updateName(node: MobxTreeModel, value: string) {
     node.name = value;
   }
-  updateToggle(node: FluxionTreeModel, value: boolean) {
+  updateToggle(node: MobxTreeModel, value: boolean) {
     node.isExpanded = value;
   }
-  updateIsSelected(node: FluxionTreeModel) {
+  updateIsSelected(node: MobxTreeModel) {
     node.isSelected = true;
   }
 
   private searchParent(
-    node: FluxionTreeModel[],
+    node: MobxTreeModel[],
     id: string,
-    callback?: (parent: FluxionTreeModel[]) => void
-  ): FluxionTreeModel[] | null {
+    callback?: (parent: MobxTreeModel[]) => void
+  ): MobxTreeModel[] | null {
     for (let i = 0; i < node.length; i++) {
       if (node[i].id === id) {
         callback?.(node);
@@ -42,7 +42,7 @@ export class ExampleFluxionTreeState {
     return null; // Node not found
   }
 
-  recusive(node: FluxionTreeModel[], callback?: (node: FluxionTreeModel) => void): void {
+  recusive(node: MobxTreeModel[], callback?: (node: MobxTreeModel) => void): void {
     for (let i = 0; i < node.length; i++) {
       callback?.(node[i]);
 

@@ -1,7 +1,7 @@
 import { CustomTree } from './example/with-builtin-class';
 import { CustomTreeUsingCustomModel } from './example/with-custom-class';
 
-import './lib/fluxion-tree/tree.css';
+import './lib/mobx-tree/tree.css';
 
 function App() {
   return (

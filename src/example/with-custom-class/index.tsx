@@ -1,10 +1,10 @@
 import { runInAction, toJS } from 'mobx';
-import { FluxionTree } from '../../lib/fluxion-tree';
-import { ExampleCustomFluxionTreeState } from './example-fluxion-tree-state';
+import { MobxTree } from '../../lib/mobx-tree';
+import { ExampleCustomMobxTreeState } from './example-mobx-tree-state';
 import { initialData, testData } from './test-data';
-import { CustomFluxionTreeModel } from './customfluxion-tree-model';
+import { CustomMobxTreeModel } from './custom-mobx-tree-model';
 
-const store = new ExampleCustomFluxionTreeState();
+const store = new ExampleCustomMobxTreeState();
 
 export const CustomTreeUsingCustomModel: React.FC = () => {
   const clearConsole = () => {
@@ -41,7 +41,7 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
     });
   };
 
-  const expandNode = (node: CustomFluxionTreeModel) => {
+  const expandNode = (node: CustomMobxTreeModel) => {
     store.updateToggle(node, true);
   };
 
@@ -53,7 +53,7 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
     store.recusive(store.state, n => (n.isExpanded = false));
   };
 
-  const updateName = (node: CustomFluxionTreeModel, newName: string) => {
+  const updateName = (node: CustomMobxTreeModel, newName: string) => {
     store.updateName(node, newName);
   };
 
@@ -78,7 +78,7 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
       <br />
       <br />
 
-      <FluxionTree<CustomFluxionTreeModel>
+      <MobxTree<CustomMobxTreeModel>
         compact={false}
         nodes={store.state}
         onToggle={(node, value: boolean) => {

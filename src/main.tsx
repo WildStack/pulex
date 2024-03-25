@@ -11,3 +11,7 @@ configure({
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
+
+//TODO remove index.scss, app.tsx, all example folders (move this one to example section or something in github)
+//TODO rename project to @wilstack/core
+//TODO push to npm as library via github package registry https://www.youtube.com/watch?v=KV5XFwfvnEI

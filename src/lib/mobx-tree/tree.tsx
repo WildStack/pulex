@@ -1,24 +1,26 @@
 import { observer } from 'mobx-react-lite';
-import { FluxionTreeNode } from './tree-node';
-import { FluxionTreeProps } from './tree.type';
-import { FluxionTreeModel } from '.';
+import { MobxTreeNode } from './tree-node';
+import { MobxTreeProps } from './tree.type';
+import { MobxTreeModel } from './tree.model';
 
-export const FluxionTree = observer(
-  <T extends FluxionTreeModel>({
+export const MobxTree = observer(
+  <T extends MobxTreeModel>({
     nodes,
+    compact,
+    className,
     onToggle,
     onClick,
     onCollapse,
     onExpand,
     onContextMenu,
-    compact,
-    className,
-  }: FluxionTreeProps<T>): JSX.Element => {
+    renderTypeIcon,
+    renderArrowIcon,
+  }: MobxTreeProps<T>): JSX.Element => {
     return (
       <>
-        <div className={className ? className + ' fluxion-tree' : 'fluxion-tree'}>
+        <div className={className ? className + ' wildstack-mobx-tree' : 'wildstack-mobx-tree'}>
           {nodes.map(node => (
-            <FluxionTreeNode<T>
+            <MobxTreeNode<T>
               compact={compact}
               localDepth={0}
               key={node.id}
@@ -28,6 +30,8 @@ export const FluxionTree = observer(
               onCollapse={onCollapse}
               onExpand={onExpand}
               onContextMenu={onContextMenu}
+              renderTypeIcon={renderTypeIcon}
+              renderArrowIcon={renderArrowIcon}
             />
           ))}
         </div>

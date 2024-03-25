@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 
-export class FluxionTreeModel {
+export class MobxTreeModel {
   id: string;
   name: string;
-  children?: FluxionTreeModel[];
+  children?: MobxTreeModel[];
   isSelected: boolean;
   isExpanded: boolean;
   isFile: boolean;
