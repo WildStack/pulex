@@ -9,6 +9,7 @@ import { AiFillFile, AiFillFolder } from 'react-icons/ai';
 
 interface TreeProps {
   nodes: Data[];
+  compact?: boolean;
   onClick?: (node: Data) => void;
   onToggle?: (node: Data, value: boolean) => void;
   onExpand?: (node: Data) => void;
@@ -18,16 +19,17 @@ interface TreeProps {
 
 interface TreeNodeProps {
   node: Data;
+  compact?: boolean;
   onClick?: (node: Data) => void;
   onToggle?: (node: Data, value: boolean) => void;
   onExpand?: (node: Data) => void;
   onCollapse?: (node: Data) => void;
   onContextMenu?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, node: Data) => void;
-  localDepth: number;
+  localDepth: Readonly<number>; // only for tree node
 }
 
 const TreeNodeComponent: React.FC<TreeNodeProps> = observer(
-  ({ node, onToggle, onClick, onCollapse, onExpand, localDepth, onContextMenu }) => {
+  ({ node, onToggle, onClick, onCollapse, onExpand, localDepth, onContextMenu, compact }) => {
     const handleToggle = useCallback(
       (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         e.stopPropagation();
@@ -47,7 +49,7 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = observer(
           className={`custom-tree-node-content flex-help ${
             node.isSelected ? 'custom-tree-node-content-selected' : ''
           }`}
-          style={{ paddingLeft: localDepth * 10 }}
+          style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10 }}
           onClick={() => onClick?.(node)}
           onContextMenu={e => onContextMenu?.(e, node)}
         >
@@ -75,6 +77,7 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = observer(
           node.children.length > 0 &&
           node.children.map(child => (
             <TreeNodeComponent
+              compact={compact}
               localDepth={localDepth + 1}
               key={child.id}
               node={child}
@@ -91,11 +94,12 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = observer(
 );
 
 const Tree: React.FC<TreeProps> = observer(
-  ({ nodes, onToggle, onClick, onCollapse, onExpand, onContextMenu }) => {
+  ({ nodes, onToggle, onClick, onCollapse, onExpand, onContextMenu, compact }) => {
     return (
       <>
         {nodes.map(node => (
           <TreeNodeComponent
+            compact={compact}
             localDepth={0}
             key={node.id}
             node={node}
@@ -142,6 +146,7 @@ export const CustomTree: React.FC = () => {
       <button onClick={() => temp.updateName(temp.state[0], 'Niggeria')}>update name</button>
 
       <Tree
+        compact={false}
         nodes={temp.state}
         onToggle={(node: Data, value: boolean) => temp.updateToggle(node, value)}
         onClick={(node: Data) => {
