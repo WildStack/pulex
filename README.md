@@ -12,7 +12,7 @@ npm i @pulexui/core
 
 <br />
 
-### Example code (more examples in src directory)
+### Example code (more examples in src/example directory)
 ```tsx
 import { MobxTree } from '@pulexui/core';
 
