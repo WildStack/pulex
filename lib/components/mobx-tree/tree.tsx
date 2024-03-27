@@ -18,7 +18,7 @@ export const MobxTree = observer(
   }: MobxTreeProps<T>): JSX.Element => {
     return (
       <>
-        <div className={className ? className + ' pulex-mobx-tree' : 'pulex-mobx-tree'}>
+        <div className={className ? className + ' pulexui-mobx-tree' : 'pulexui-mobx-tree'}>
           {nodes.map(node => (
             <MobxTreeNode<T>
               compact={compact}

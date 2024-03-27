@@ -68,10 +68,10 @@ export const MobxTreeNode = observer(
     );
 
     return (
-      <div className="pulex-mobx-tree-node">
+      <div className="pulexui-mobx-tree-node">
         <div
-          className={`pulex-mobx-tree-node-content flex-help ${
-            node.isSelected ? 'pulex-mobx-tree-node-content-selected' : ''
+          className={`pulexui-mobx-tree-node-content flex-help ${
+            node.isSelected ? 'pulexui-mobx-tree-node-content-selected' : ''
           }`}
           style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10, whiteSpace: 'nowrap' }}
           onClick={() => onClick?.(node)}

@@ -2,7 +2,7 @@ export const ChevronDownIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    className="pulex-mobx-tree-default-icon"
+    className="pulexui-mobx-tree-default-icon"
   >
     <g data-name="Layer 2">
       <g data-name="chevron-down">
@@ -17,7 +17,7 @@ export const ChevronRightIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    className="pulex-mobx-tree-default-icon"
+    className="pulexui-mobx-tree-default-icon"
   >
     <g data-name="Layer 2">
       <g data-name="chevron-right">
@@ -32,7 +32,7 @@ export const FileIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    className="pulex-mobx-tree-default-icon"
+    className="pulexui-mobx-tree-default-icon"
   >
     <g data-name="Layer 2">
       <g data-name="file">
@@ -47,7 +47,7 @@ export const FolderIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    className="pulex-mobx-tree-default-icon"
+    className="pulexui-mobx-tree-default-icon"
   >
     <g data-name="Layer 2">
       <g data-name="folder">
