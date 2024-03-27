@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { MobxTreeModel } from '../../lib/mobx-tree';
+import { MobxTreeModel } from '@pulexui/core';
 
 export class CustomMobxTreeModel implements MobxTreeModel {
   id: string;

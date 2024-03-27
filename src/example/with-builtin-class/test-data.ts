@@ -1,5 +1,5 @@
 import { IObservableArray, observable } from 'mobx';
-import { MobxTreeModel, MobxTreeModelFactory } from '../../lib/mobx-tree';
+import { MobxTreeModel, MobxTreeModelFactory } from '@pulexui/core';
 
 export const initialData = (): IObservableArray<MobxTreeModel> => {
   const arr = [

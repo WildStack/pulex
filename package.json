@@ -22,11 +22,14 @@
     "type": "git",
     "url": "git+https://github.com/WildStack/pulex.git"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "use:nvm": "source ~/.nvm/nvm.sh && nvm use",
     "install": "npm run use:nvm",
     "preinstall": "npm run use:nvm",
-    "prestart": "npm run use:nvm",
+    "prestart": "npm run use:nvm && npm run npm:link:mac",
     "prebuild": "npm run use:nvm",
     "modules:update:check": "npm run use:nvm && npx npm-check-updates",
     "modules:update": "npm run use:nvm && npx npm-check-updates -u",
@@ -36,7 +39,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
-    "publish:npm": "npm publish --access public"
+    "publish:npm": "npm publish --access public",
+    "npm:link:mac": "cd ./lib && npm link && cd ../ && npm link @pulexui/core"
   },
   "dependencies": {
     "mobx": "^6.12.1",

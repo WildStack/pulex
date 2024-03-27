@@ -1,5 +1,5 @@
 import { IObservableArray, makeAutoObservable, toJS } from 'mobx';
-import { MobxTreeModel } from '../../lib/mobx-tree';
+import { MobxTreeModel } from '@pulexui/core';
 import { initialData } from './test-data';
 
 export class ExampleMobxTreeState {

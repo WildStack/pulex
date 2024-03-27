@@ -1,5 +1,5 @@
 import { runInAction, toJS } from 'mobx';
-import { MobxTree } from '../../lib/mobx-tree';
+import { MobxTree } from '@pulexui/core';
 import { ExampleCustomMobxTreeState } from './example-mobx-tree-state';
 import { initialData, testData } from './test-data';
 import { CustomMobxTreeModel } from './custom-mobx-tree-model';
