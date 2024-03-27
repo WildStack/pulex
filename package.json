@@ -1,6 +1,5 @@
 {
-  "name": "ract-tree-app",
-  "private": true,
+  "name": "@WildStack/pulex",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,6 +8,9 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
+  },
+  "publishConfig": {
+    "@WildStack:registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "mobx": "^6.12.1",
