@@ -9,8 +9,7 @@
   "types": "dist/main.d.ts",
   "module": "dist/main.js",
   "files": [
-    "dist",
-    "logo.png"
+    "dist"
   ],
   "exports": {
     ".": {
