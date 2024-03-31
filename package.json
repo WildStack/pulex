@@ -32,7 +32,7 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "publish:npm": "npm publish --access public",
-    "publish:npm:full": "npm version patch && git push && npm publish --access public",
+    "publish:npm:full": "VITE_DEBUG_WATCH_BUILD=false && npm version patch && git push && npm publish --access public",
     "npm:link:mac": "cd ./lib && npm link && cd ../ && npm link @pulexui/core"
   },
   "dependencies": {
