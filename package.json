@@ -3,7 +3,7 @@
   "author": "Giorgi Kumelashvili <https://github.com/GiorgiKumelashvili>",
   "license": "MIT",
   "name": "@pulexui/core",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "main": "dist/main.cjs",
   "types": "dist/main.d.ts",
