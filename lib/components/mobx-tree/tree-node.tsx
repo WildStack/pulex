@@ -71,7 +71,7 @@ export const MobxTreeNode = observer(
     return (
       <div className="pulexui-mobx-tree-node">
         <div
-          className={`pulexui-mobx-tree-node-content flex-help ${nodeClassName} ${
+          className={`pulexui-mobx-tree-node-content flex-help ${nodeClassName ?? ''} ${
             node.isSelected ? 'pulexui-mobx-tree-node-content-selected' : ''
           }`}
           style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10, whiteSpace: 'nowrap' }}
@@ -79,9 +79,13 @@ export const MobxTreeNode = observer(
           onContextMenu={e => onContextMenu?.(e, node)}
         >
           {node.isFile ? (
-            <span style={{ width: '20px' }}></span>
+            <span style={{ marginLeft: '20px' }}></span>
           ) : (
-            <span className="flex-help" onClick={handleToggle} style={{ cursor: 'pointer' }}>
+            <span
+              className="flex-help"
+              onClick={handleToggle}
+              style={{ cursor: 'pointer', width: '20px', justifyContent: 'center' }}
+            >
               <RenderArrowIcon node={node} renderArrowIcon={renderArrowIcon} />
             </span>
           )}
@@ -90,7 +94,11 @@ export const MobxTreeNode = observer(
             <RenderTypeIcon node={node} renderTypeIcon={renderTypeIcon} />
           </span>
 
-          <div style={{ flex: 1, paddingLeft: '5px' }}>{node.name}</div>
+          <div
+            style={{ flex: 1, paddingLeft: '5px', textOverflow: 'ellipsis', overflow: 'hidden' }}
+          >
+            {node.name}
+          </div>
         </div>
 
         {node.isExpanded &&

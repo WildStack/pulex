@@ -70,6 +70,7 @@ export const CustomTree: React.FC = () => {
       <button onClick={addTestDataDeep}>Add Test Data (Deep First Node)</button>
       <button onClick={() => expandNode(store.state[0])}>Expand First Node</button>
       <button onClick={() => expandNode(store.state[0].children![0])}>Expand deep Node</button>
+
       <button onClick={expandAll}>Expand All</button>
       <button onClick={collapseAll}>Collapse All</button>
       <button onClick={() => updateName(store.state[0], 'Nigeria')}>Update Name</button>
@@ -81,12 +82,11 @@ export const CustomTree: React.FC = () => {
       <div
         style={{
           height: 300,
-          width: 400,
+          width: 200,
           maxHeight: 300,
-          overflowY: 'auto',
-          overflowX: 'auto',
           border: '1px solid white',
-          display: 'flex',
+          overflowX: 'hidden',
+          resize: 'both',
         }}
       >
         <MobxTree
@@ -115,7 +115,7 @@ export const CustomTree: React.FC = () => {
 
             return <>FOLDER</>;
           }}
-          renderArrowIcon={node => (node.isExpanded ? <>&#8595;</> : <>&#8594;</>)}
+          renderArrowIcon={node => (node.isExpanded ? <span>&#8595;</span> : <span>&#8594;</span>)}
         />
       </div>
     </>

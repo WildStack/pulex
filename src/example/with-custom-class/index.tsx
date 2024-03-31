@@ -78,34 +78,45 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
       <br />
       <br />
 
-      <MobxTree<number, CustomMobxTreeModel>
-        compact={false}
-        nodes={store.state}
-        onToggle={(node, value: boolean) => {
-          console.log(toJS(node));
-
-          store.updateToggle(node, value);
+      <div
+        style={{
+          height: 300,
+          width: 500,
+          maxHeight: 300,
+          border: '1px solid white',
+          overflowX: 'hidden',
+          resize: 'both',
         }}
-        onClick={node => {
-          console.log(toJS(node));
-          console.log('customSomeData', toJS(node.customSomeData));
+      >
+        <MobxTree<number, CustomMobxTreeModel>
+          compact={false}
+          nodes={store.state}
+          onToggle={(node, value: boolean) => {
+            console.log(toJS(node));
 
-          // 1. It is better to select node first for animation speed
-          store.updateIsSelected(node);
+            store.updateToggle(node, value);
+          }}
+          onClick={node => {
+            console.log(toJS(node));
+            console.log('customSomeData', toJS(node.customSomeData));
 
-          // 2. And then recusrively deselect others except the selected node
-          store.recusive(store.state, n => {
-            if (n.id !== node.id) {
-              n.isSelected = false;
-            }
-          });
-        }}
-        onContextMenu={(e, node) => {
-          console.log(toJS(node));
-          e.preventDefault();
-          console.log('Right Click', e.pageX, e.pageY, toJS(node));
-        }}
-      />
+            // 1. It is better to select node first for animation speed
+            store.updateIsSelected(node);
+
+            // 2. And then recusrively deselect others except the selected node
+            store.recusive(store.state, n => {
+              if (n.id !== node.id) {
+                n.isSelected = false;
+              }
+            });
+          }}
+          onContextMenu={(e, node) => {
+            console.log(toJS(node));
+            e.preventDefault();
+            console.log('Right Click', e.pageX, e.pageY, toJS(node));
+          }}
+        />
+      </div>
     </>
   );
 };

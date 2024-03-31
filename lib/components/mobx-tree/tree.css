@@ -1,9 +1,3 @@
-.pulexui-mobx-tree {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
 .pulexui-mobx-tree * {
   user-select: none;
 }

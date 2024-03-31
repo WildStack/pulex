@@ -12,7 +12,7 @@ export const initialData = (): IObservableArray<MobxTreeModel> => {
       children: [
         MobxTreeModelFactory.create({
           id: 'mmmxxxxx',
-          name: 'Alice MMMM',
+          name: 'Alice MMMMAlice MMMMAlice MMMMAlice MMMM',
           isSelected: false,
           isExpanded: false,
           isFile: false,
@@ -31,7 +31,7 @@ export const initialData = (): IObservableArray<MobxTreeModel> => {
     }),
     MobxTreeModelFactory.create({
       id: '2',
-      name: 'Threads',
+      name: 'ThreadsThreadsThreadsThreadsThreadsThreadsThreads',
       isSelected: false,
       isExpanded: false,
       isFile: true,
