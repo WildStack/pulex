@@ -8,6 +8,7 @@ export const MobxTree = observer(
     nodes,
     compact,
     className,
+    nodeClassName,
     onToggle,
     onClick,
     onCollapse,
@@ -25,6 +26,7 @@ export const MobxTree = observer(
               localDepth={0}
               key={node.id}
               node={node}
+              nodeClassName={nodeClassName}
               onToggle={onToggle}
               onClick={onClick}
               onCollapse={onCollapse}

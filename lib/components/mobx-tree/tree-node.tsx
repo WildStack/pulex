@@ -45,6 +45,7 @@ export const MobxTreeNode = observer(
     node,
     compact,
     localDepth,
+    nodeClassName,
     onToggle,
     onClick,
     onCollapse,
@@ -70,7 +71,7 @@ export const MobxTreeNode = observer(
     return (
       <div className="pulexui-mobx-tree-node">
         <div
-          className={`pulexui-mobx-tree-node-content flex-help ${
+          className={`pulexui-mobx-tree-node-content flex-help ${nodeClassName} ${
             node.isSelected ? 'pulexui-mobx-tree-node-content-selected' : ''
           }`}
           style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10, whiteSpace: 'nowrap' }}
@@ -96,6 +97,7 @@ export const MobxTreeNode = observer(
           (node.children?.length ?? 0) > 0 &&
           node?.children?.map(child => (
             <MobxTreeNode<ID_TYPE, T>
+              nodeClassName={nodeClassName}
               compact={compact}
               localDepth={localDepth + 1}
               key={child.id}

@@ -4,6 +4,7 @@ export interface MobxTreeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> {
   nodes: T[];
 
   className?: string;
+  nodeClassName?: string;
   compact?: boolean;
 
   onClick?: (node: T) => void;
@@ -19,6 +20,7 @@ export interface MobxTreeNodeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> {
   node: T;
 
   compact?: boolean;
+  nodeClassName?: string;
   localDepth: Readonly<number>; // only for tree node
 
   onClick?: (node: T) => void;
