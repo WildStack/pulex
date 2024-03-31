@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 
-export class MobxTreeModel {
-  id: string;
+export class MobxTreeModel<ID_TYPE = string> {
+  id: ID_TYPE;
   name: string;
-  children?: MobxTreeModel[];
+  children?: MobxTreeModel<ID_TYPE>[];
   isSelected: boolean;
   isExpanded: boolean;
   isFile: boolean;
