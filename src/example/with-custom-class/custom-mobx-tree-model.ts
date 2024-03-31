@@ -1,10 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { MobxTreeModel } from '@pulexui/core';
 
-export class CustomMobxTreeModel<ID_TYPE = string> implements MobxTreeModel<ID_TYPE> {
-  id: ID_TYPE;
+export class CustomMobxTreeModel implements MobxTreeModel {
+  id: string;
   name: string;
-  children?: MobxTreeModel<ID_TYPE>[] | undefined;
+  children?: MobxTreeModel[] | undefined;
   isSelected: boolean;
   isExpanded: boolean;
   isFile: boolean;
