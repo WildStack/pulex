@@ -1,6 +1,6 @@
 import { MobxTreeModel } from './tree.model';
 
-export interface MobxTreeProps<T extends MobxTreeModel> {
+export interface MobxTreeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> {
   nodes: T[];
 
   className?: string;
@@ -15,7 +15,7 @@ export interface MobxTreeProps<T extends MobxTreeModel> {
   renderArrowIcon?: (node: T) => JSX.Element;
 }
 
-export interface MobxTreeNodeProps<T extends MobxTreeModel> {
+export interface MobxTreeNodeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> {
   node: T;
 
   compact?: boolean;

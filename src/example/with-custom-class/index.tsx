@@ -27,7 +27,7 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
     console.log(JSON.stringify(toJS(store.state), null, 2));
   };
 
-  const deleteNode = (id: string) => {
+  const deleteNode = (id: number) => {
     store.delete(id);
   };
 
@@ -64,9 +64,9 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
       <button onClick={clearState}>Clear State</button>
       <button onClick={logState}>Log State</button>
       <button onClick={logStateJson}>Log State (JSON)</button>
-      <button onClick={() => deleteNode('100')}>Delete ID 100</button>
-      <button onClick={() => deleteNode('3')}>Delete ID 3</button>
-      <button onClick={() => deleteNode('mmmxxxxx')}>Delete ID mmmxxxxx</button>
+      <button onClick={() => deleteNode(7576)}>Delete ID 7576</button>
+      <button onClick={() => deleteNode(6799)}>Delete ID 6799</button>
+      <button onClick={() => deleteNode(1440)}>Delete ID 1440</button>
       <button onClick={addTestData}>Add Test Data</button>
       <button onClick={addTestDataDeep}>Add Test Data (Deep First Node)</button>
       <button onClick={() => expandNode(store.state[0])}>Expand First Node</button>
@@ -78,7 +78,7 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
       <br />
       <br />
 
-      <MobxTree<CustomMobxTreeModel>
+      <MobxTree<number, CustomMobxTreeModel>
         compact={false}
         nodes={store.state}
         onToggle={(node, value: boolean) => {

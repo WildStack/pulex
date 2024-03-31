@@ -4,21 +4,21 @@ import { CustomMobxTreeModel, CustomMobxTreeModelFactory } from './custom-mobx-t
 export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
   const arr = [
     CustomMobxTreeModelFactory.create({
-      id: '100',
+      id: 7576,
       name: 'Unread',
       isSelected: false,
       isExpanded: false,
       isFile: false,
       children: [
         CustomMobxTreeModelFactory.create({
-          id: 'mmmxxxxx',
+          id: 4509,
           name: 'Alice MMMM',
           isSelected: false,
           isExpanded: false,
           isFile: false,
           children: [
             CustomMobxTreeModelFactory.create({
-              id: 'zzz',
+              id: 6935,
               name: 'Alice ZZZ',
               isSelected: false,
               isExpanded: false,
@@ -30,40 +30,40 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
       ],
     }),
     CustomMobxTreeModelFactory.create({
-      id: '2',
+      id: 8444,
       name: 'Threads',
       isSelected: false,
       isExpanded: false,
       isFile: true,
     }),
     CustomMobxTreeModelFactory.create({
-      id: '3',
+      id: 8235,
       name: 'Chat Rooms',
       isFile: false,
       children: [
         {
-          id: 'c1',
+          id: 1681,
           name: 'General',
           isSelected: false,
           isExpanded: false,
           isFile: false,
           children: [
             CustomMobxTreeModelFactory.create({
-              id: 'd1',
+              id: 3817,
               name: 'Alice',
               isSelected: false,
               isExpanded: false,
               isFile: true,
             }),
             CustomMobxTreeModelFactory.create({
-              id: 'd2',
+              id: 9141,
               name: 'Bob',
               isSelected: false,
               isExpanded: false,
               isFile: true,
             }),
             CustomMobxTreeModelFactory.create({
-              id: 'd3',
+              id: 6799,
               name: 'Charlie',
               isSelected: false,
               isExpanded: false,
@@ -72,14 +72,14 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
           ],
         },
         CustomMobxTreeModelFactory.create({
-          id: 'c2',
+          id: 4922,
           name: 'Random',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'c3',
+          id: 9416,
           name: 'Open Source Projects',
           isSelected: false,
           isExpanded: false,
@@ -90,25 +90,25 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
       isExpanded: false,
     }),
     CustomMobxTreeModelFactory.create({
-      id: '4',
+      id: 9819,
       name: 'Direct Messages',
       children: [
         CustomMobxTreeModelFactory.create({
-          id: 'd1',
+          id: 1968,
           name: 'Alice',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'd2',
+          id: 9330,
           name: 'Bob',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'd3',
+          id: 2821,
           name: 'Charlie',
           isSelected: false,
           isExpanded: false,
@@ -127,26 +127,26 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
 export const testData = (): IObservableArray<CustomMobxTreeModel> => {
   const arr = [
     CustomMobxTreeModelFactory.create({
-      id: '40',
+      id: 1440,
       name: 'XX',
       isFile: false,
       children: [
         CustomMobxTreeModelFactory.create({
-          id: 'x1',
+          id: 7119,
           name: 'Alice',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'x2',
+          id: 7395,
           name: 'Bob',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'x3',
+          id: 4928,
           name: 'Charlie',
           isSelected: false,
           isExpanded: false,
@@ -157,26 +157,26 @@ export const testData = (): IObservableArray<CustomMobxTreeModel> => {
       isExpanded: true,
     }),
     CustomMobxTreeModelFactory.create({
-      id: '50',
+      id: 2535,
       name: 'MM',
       isFile: false,
       children: [
         CustomMobxTreeModelFactory.create({
-          id: 'm1',
+          id: 1307,
           name: 'Alice',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'm2',
+          id: 8616,
           name: 'Bob',
           isSelected: false,
           isExpanded: false,
           isFile: true,
         }),
         CustomMobxTreeModelFactory.create({
-          id: 'm3',
+          id: 1415,
           name: 'Charlie',
           isSelected: false,
           isExpanded: false,

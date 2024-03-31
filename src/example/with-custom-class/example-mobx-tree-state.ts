@@ -21,7 +21,7 @@ export class ExampleCustomMobxTreeState {
 
   private searchParent(
     node: CustomMobxTreeModel[],
-    id: string,
+    id: number,
     callback?: (parent: CustomMobxTreeModel[]) => void
   ): CustomMobxTreeModel[] | null {
     for (let i = 0; i < node.length; i++) {
@@ -52,7 +52,7 @@ export class ExampleCustomMobxTreeState {
     }
   }
 
-  delete(id: string) {
+  delete(id: number) {
     this.searchParent(this.state, id, parent => {
       console.log('='.repeat(20) + 'parent');
       console.log(toJS(parent));

@@ -4,7 +4,7 @@ import { MobxTreeProps } from './tree.type';
 import { MobxTreeModel } from './tree.model';
 
 export const MobxTree = observer(
-  <T extends MobxTreeModel>({
+  <ID_TYPE extends string | number, T extends MobxTreeModel<ID_TYPE>>({
     nodes,
     compact,
     className,
@@ -15,12 +15,12 @@ export const MobxTree = observer(
     onContextMenu,
     renderTypeIcon,
     renderArrowIcon,
-  }: MobxTreeProps<T>): JSX.Element => {
+  }: MobxTreeProps<ID_TYPE, T>): JSX.Element => {
     return (
       <>
         <div className={className ? className + ' pulexui-mobx-tree' : 'pulexui-mobx-tree'}>
           {nodes.map(node => (
-            <MobxTreeNode<T>
+            <MobxTreeNode<ID_TYPE, T>
               compact={compact}
               localDepth={0}
               key={node.id}

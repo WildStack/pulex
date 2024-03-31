@@ -4,7 +4,7 @@ import { MobxTreeNodeProps } from './tree.type';
 import { MobxTreeModel } from './tree.model';
 import { ChevronDownIcon, ChevronRightIcon, FileIcon, FolderIcon } from './default-icons';
 
-const RenderTypeIcon = <T extends MobxTreeModel>({
+const RenderTypeIcon = <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
   node,
   renderTypeIcon,
 }: {
@@ -22,7 +22,7 @@ const RenderTypeIcon = <T extends MobxTreeModel>({
   return <FolderIcon />;
 };
 
-const RenderArrowIcon = <T extends MobxTreeModel>({
+const RenderArrowIcon = <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
   node,
   renderArrowIcon,
 }: {
@@ -41,7 +41,7 @@ const RenderArrowIcon = <T extends MobxTreeModel>({
 };
 
 export const MobxTreeNode = observer(
-  <T extends MobxTreeModel>({
+  <ID_TYPE extends string | number, T extends MobxTreeModel<ID_TYPE>>({
     node,
     compact,
     localDepth,
@@ -52,7 +52,7 @@ export const MobxTreeNode = observer(
     onContextMenu,
     renderTypeIcon,
     renderArrowIcon,
-  }: MobxTreeNodeProps<T>) => {
+  }: MobxTreeNodeProps<ID_TYPE, T>) => {
     const handleToggle = useCallback(
       (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
         e.stopPropagation();
@@ -95,7 +95,7 @@ export const MobxTreeNode = observer(
         {node.isExpanded &&
           (node.children?.length ?? 0) > 0 &&
           node?.children?.map(child => (
-            <MobxTreeNode<T>
+            <MobxTreeNode<ID_TYPE, T>
               compact={compact}
               localDepth={localDepth + 1}
               key={child.id}
