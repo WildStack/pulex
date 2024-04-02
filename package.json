@@ -34,7 +34,7 @@
     "prepublishOnly": "npm run build",
     "publish:npm": "npm publish --access public",
     "publish:npm:full": "npm version patch && git push && npm publish --access public",
-    "npm:link:mac": "cd ./lib && npm link && cd ../ && npm link @pulexui/core",
+    "npm:link:mac": "cd ./lib && npm link && cd ../ && npm link @pulexui/core"
   },
   "dependencies": {
     "mobx": "^6.12.1",
