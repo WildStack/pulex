@@ -3,7 +3,7 @@
   "author": "Giorgi Kumelashvili <https://github.com/GiorgiKumelashvili>",
   "license": "MIT",
   "name": "@pulexui/core",
-  "version": "0.0.21",
+  "version": "0.0.20",
   "type": "module",
   "main": "dist/main.cjs",
   "types": "dist/main.d.ts",
@@ -28,12 +28,13 @@
     "start": "vite --open",
     "dev": "vite --open",
     "build": "tsc --p ./tsconfig-build.json && npm run lint && vite build",
+    "build:watch": "tsc --p ./tsconfig-build.json && npm run lint && vite build --watch",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "publish:npm": "npm publish --access public",
     "publish:npm:full": "npm version patch && git push && npm publish --access public",
-    "npm:link:mac": "cd ./lib && npm link && cd ../ && npm link @pulexui/core"
+    "npm:link:mac": "cd ./lib && npm link && cd ../ && npm link @pulexui/core",
   },
   "dependencies": {
     "mobx": "^6.12.1",
