@@ -41,7 +41,7 @@ export const initialData = (): IObservableArray<MobxTreeModel> => {
       name: 'Chat Rooms',
       isFile: false,
       children: [
-        {
+        MobxTreeModelFactory.create({
           id: 'c1',
           name: 'General',
           isSelected: false,
@@ -70,7 +70,7 @@ export const initialData = (): IObservableArray<MobxTreeModel> => {
               isFile: true,
             }),
           ],
-        },
+        }),
         MobxTreeModelFactory.create({
           id: 'c2',
           name: 'Random',

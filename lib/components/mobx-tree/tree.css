@@ -22,6 +22,11 @@
   fill: white;
 }
 
+.pulexui-mobx-tree .pulex-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* ----------- helper ------------------------------- */
 
 .pulexui-mobx-tree .flex-help {

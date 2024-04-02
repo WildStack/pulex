@@ -4,6 +4,10 @@ import { MobxTreeModel } from './tree.model';
 export type MobxTreeNodeParamExport<T> = {
   node: T;
   e: React.MouseEvent<HTMLDivElement, MouseEvent>;
+
+  /**
+   * @description This property can be used if there is some issue with rerender proccess while changing some props
+   */
   rerender: () => void;
 };
 

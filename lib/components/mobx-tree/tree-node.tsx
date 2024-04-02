@@ -4,6 +4,7 @@ import { MobxTreeNodeProps } from './tree.type';
 import { MobxTreeModel } from './tree.model';
 import { ChevronDownIcon, ChevronRightIcon, FileIcon, FolderIcon } from './default-icons';
 import { getRandomInt } from '../../utils/random';
+import { classNames } from '../../utils/misc';
 
 const RenderTypeIcon = observer(
   <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
@@ -90,10 +91,13 @@ export const MobxTreeNode = observer(
     return (
       <div className="pulexui-mobx-tree-node" key={renderTracker.localRenderKey}>
         <div
-          className={`pulexui-mobx-tree-node-content flex-help ${nodeClassName ?? ''} ${
-            node.isSelected ? 'pulexui-mobx-tree-node-content-selected' : ''
-          }`}
           style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10, whiteSpace: 'nowrap' }}
+          className={classNames(nodeClassName, {
+            'flex-help': true,
+            'pulexui-mobx-tree-node-content': true,
+            'pulexui-mobx-tree-node-content-selected': node.isSelected,
+            'pulex-disabled': node.isDisabled,
+          })}
           onClick={e => {
             onClick?.({ node, e, rerender: renderTracker.setRandomLocalRenderKey });
           }}
@@ -101,9 +105,7 @@ export const MobxTreeNode = observer(
             onContextMenu?.({ node, e, rerender: renderTracker.setRandomLocalRenderKey })
           }
         >
-          {node.isFile ? (
-            <div style={{ marginLeft: '20px' }}></div>
-          ) : (
+          {node.hasCaret ? (
             <div
               className="flex-help"
               onClick={handleToggle}
@@ -111,6 +113,8 @@ export const MobxTreeNode = observer(
             >
               <RenderArrowIcon node={node} renderArrowIcon={renderArrowIcon} />
             </div>
+          ) : (
+            <div style={{ marginLeft: '20px' }}></div>
           )}
 
           <span className="flex-help">

@@ -59,34 +59,58 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
     store.updateName(node, newName);
   };
 
-  const toggleActiveIconForFirstNode = ({ isLoading }: { isLoading: boolean }) => {
-    runInAction(() => {
-      store.state[0].customActiveIcon = isLoading ? 'loading' : 'folder';
+  const simulateChildrenLoading = async () => {
+    await runInAction(async () => {
+      const node = store.state[0]; // first node
+
+      console.log('before', toJS(node));
+
+      node.setCustomActiveIcon('loading');
+      node.setDisabled(true);
+
+      await new Promise(f => setTimeout(f, 1000));
+
+      node.setCustomActiveIcon('folder');
+      node.setDisabled(false);
+      store.updateToggle(node, true);
+
+      runInAction(() => {
+        node.children?.push(...testData());
+      });
+
+      console.log('after', toJS(node));
     });
   };
 
   return (
     <>
       <button onClick={clearConsole}>Clear Console</button>
-      <button onClick={restartState}>Restart State</button>
       <button onClick={clearState}>Clear State</button>
       <button onClick={logState}>Log State</button>
       <button onClick={logStateJson}>Log State (JSON)</button>
+      <button onClick={restartState}>Restart State</button>
+      <br />
+      <br />
       <button onClick={() => deleteNode(7576)}>Delete ID 7576</button>
       <button onClick={() => deleteNode(6799)}>Delete ID 6799</button>
       <button onClick={() => deleteNode(1440)}>Delete ID 1440</button>
+      <br />
+      <br />
       <button onClick={addTestData}>Add Test Data</button>
       <button onClick={addTestDataDeep}>Add Test Data (Deep First Node)</button>
+      <br />
+      <br />
       <button onClick={() => expandNode(store.state[0])}>Expand First Node</button>
       <button onClick={() => expandNode(store.state[0].children![0])}>Expand deep Node</button>
       <button onClick={expandAll}>Expand All</button>
       <button onClick={collapseAll}>Collapse All</button>
+      <br />
+      <br />
       <button onClick={() => updateName(store.state[0], 'Nigeria')}>Update Name</button>
-      <button onClick={() => toggleActiveIconForFirstNode({ isLoading: true })}>
-        Update first element customActiveIcon
-      </button>
-      <button onClick={() => toggleActiveIconForFirstNode({ isLoading: false })}>
-        return first element customActiveIcon
+      <br />
+      <br />
+      <button onClick={() => simulateChildrenLoading()}>
+        Simulate children loading for first element
       </button>
 
       <br />
@@ -105,21 +129,7 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
         <MobxTree<number, CustomMobxTreeModel>
           compact={false}
           nodes={store.state}
-          onToggle={async params => {
-            const { node, rerender, value } = params;
-
-            console.log(toJS(node));
-
-            await runInAction(async () => {
-              if (value) {
-                node.setCustomActiveIcon('loading');
-                rerender();
-                await new Promise(f => setTimeout(f, 1000));
-                node.setCustomActiveIcon('folder');
-                rerender();
-              }
-            });
-
+          onToggle={async ({ node, value }) => {
             store.updateToggle(node, value);
           }}
           onClick={({ node }) => {
