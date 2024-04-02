@@ -54,7 +54,15 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
   };
 
   const updateName = (node: CustomMobxTreeModel, newName: string) => {
+    console.log(node);
+
     store.updateName(node, newName);
+  };
+
+  const toggleActiveIconForFirstNode = ({ isLoading }: { isLoading: boolean }) => {
+    runInAction(() => {
+      store.state[0].customActiveIcon = isLoading ? 'loading' : 'folder';
+    });
   };
 
   return (
@@ -74,6 +82,12 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
       <button onClick={expandAll}>Expand All</button>
       <button onClick={collapseAll}>Collapse All</button>
       <button onClick={() => updateName(store.state[0], 'Nigeria')}>Update Name</button>
+      <button onClick={() => toggleActiveIconForFirstNode({ isLoading: true })}>
+        Update first element customActiveIcon
+      </button>
+      <button onClick={() => toggleActiveIconForFirstNode({ isLoading: false })}>
+        return first element customActiveIcon
+      </button>
 
       <br />
       <br />
@@ -91,14 +105,26 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
         <MobxTree<number, CustomMobxTreeModel>
           compact={false}
           nodes={store.state}
-          onToggle={(node, value: boolean) => {
+          onToggle={async params => {
+            const { node, rerender, value } = params;
+
             console.log(toJS(node));
+
+            await runInAction(async () => {
+              if (value) {
+                node.setCustomActiveIcon('loading');
+                rerender();
+                await new Promise(f => setTimeout(f, 1000));
+                node.setCustomActiveIcon('folder');
+                rerender();
+              }
+            });
 
             store.updateToggle(node, value);
           }}
-          onClick={node => {
+          onClick={({ node }) => {
             console.log(toJS(node));
-            console.log('customSomeData', toJS(node.customSomeData));
+            console.log('customActiveIcon', toJS(node.customActiveIcon));
 
             // 1. It is better to select node first for animation speed
             store.updateIsSelected(node);
@@ -110,11 +136,22 @@ export const CustomTreeUsingCustomModel: React.FC = () => {
               }
             });
           }}
-          onContextMenu={(e, node) => {
+          renderTypeIcon={node => {
+            if (node?.customActiveIcon === 'loading') {
+              return <>Loading</>;
+            }
+            if (node.isFile) {
+              return <>FILE</>;
+            }
+
+            return <>FOLDER</>;
+          }}
+          onContextMenu={({ node, e }) => {
             console.log(toJS(node));
             e.preventDefault();
             console.log('Right Click', e.pageX, e.pageY, toJS(node));
           }}
+          renderArrowIcon={node => (node.isExpanded ? <span>&#8595;</span> : <span>&#8594;</span>)}
         />
       </div>
     </>

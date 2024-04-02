@@ -92,8 +92,8 @@ export const CustomTree: React.FC = () => {
         <MobxTree
           compact={false}
           nodes={store.state}
-          onToggle={(node, value) => store.updateToggle(node, value)}
-          onClick={node => {
+          onToggle={({ node, value }) => store.updateToggle(node, value)}
+          onClick={({ node }) => {
             // 1. It is better to select node first for animation speed
             store.updateIsSelected(node);
 
@@ -104,18 +104,10 @@ export const CustomTree: React.FC = () => {
               }
             });
           }}
-          onContextMenu={(e, node) => {
+          onContextMenu={({ e, node }) => {
             e.preventDefault();
             console.log('Right Click', e.pageX, e.pageY, toJS(node));
           }}
-          renderTypeIcon={node => {
-            if (node.isFile) {
-              return <>FILE</>;
-            }
-
-            return <>FOLDER</>;
-          }}
-          renderArrowIcon={node => (node.isExpanded ? <span>&#8595;</span> : <span>&#8594;</span>)}
         />
       </div>
     </>

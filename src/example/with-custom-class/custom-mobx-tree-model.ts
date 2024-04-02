@@ -10,7 +10,11 @@ export class CustomMobxTreeModel<ID_TYPE = number> implements MobxTreeModel<ID_T
   isFile: boolean;
 
   // added custom
-  customSomeData?: string = 'hello';
+  customActiveIcon?: 'file' | 'folder' | 'loading';
+
+  setCustomActiveIcon(value: 'file' | 'folder' | 'loading') {
+    this.customActiveIcon = value;
+  }
 
   constructor() {
     makeAutoObservable(this);
@@ -18,7 +22,9 @@ export class CustomMobxTreeModel<ID_TYPE = number> implements MobxTreeModel<ID_T
 }
 
 export class CustomMobxTreeModelFactory {
-  static create<ID_TYPE = number>(params: CustomMobxTreeModel<ID_TYPE>) {
+  static create<ID_TYPE = number>(
+    params: Omit<CustomMobxTreeModel<ID_TYPE>, 'setCustomActiveIcon'>
+  ) {
     const node = new CustomMobxTreeModel<ID_TYPE>();
 
     runInAction(() => {

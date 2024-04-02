@@ -1,44 +1,49 @@
-import { observer } from 'mobx-react-lite';
+import { observer, useLocalObservable } from 'mobx-react-lite';
 import { useCallback } from 'react';
 import { MobxTreeNodeProps } from './tree.type';
 import { MobxTreeModel } from './tree.model';
 import { ChevronDownIcon, ChevronRightIcon, FileIcon, FolderIcon } from './default-icons';
+import { getRandomInt } from '../../utils/random';
 
-const RenderTypeIcon = <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
-  node,
-  renderTypeIcon,
-}: {
-  node: T;
-  renderTypeIcon?: (node: T) => JSX.Element;
-}) => {
-  if (renderTypeIcon) {
-    return renderTypeIcon(node);
+const RenderTypeIcon = observer(
+  <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
+    node,
+    renderTypeIcon,
+  }: {
+    node: T;
+    renderTypeIcon?: (node: T) => JSX.Element;
+  }) => {
+    if (renderTypeIcon) {
+      return renderTypeIcon(node);
+    }
+
+    if (node.isFile) {
+      return <FileIcon />;
+    }
+
+    return <FolderIcon />;
   }
+);
 
-  if (node.isFile) {
-    return <FileIcon />;
+const RenderArrowIcon = observer(
+  <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
+    node,
+    renderArrowIcon,
+  }: {
+    node: T;
+    renderArrowIcon?: (node: T) => JSX.Element;
+  }) => {
+    if (renderArrowIcon) {
+      return renderArrowIcon(node);
+    }
+
+    if (node.isExpanded) {
+      return <ChevronDownIcon />;
+    }
+
+    return <ChevronRightIcon />;
   }
-
-  return <FolderIcon />;
-};
-
-const RenderArrowIcon = <ID_TYPE, T extends MobxTreeModel<ID_TYPE>>({
-  node,
-  renderArrowIcon,
-}: {
-  node: T;
-  renderArrowIcon?: (node: T) => JSX.Element;
-}) => {
-  if (renderArrowIcon) {
-    return renderArrowIcon(node);
-  }
-
-  if (node.isExpanded) {
-    return <ChevronDownIcon />;
-  }
-
-  return <ChevronRightIcon />;
-};
+);
 
 export const MobxTreeNode = observer(
   <ID_TYPE extends string | number, T extends MobxTreeModel<ID_TYPE>>({
@@ -54,14 +59,28 @@ export const MobxTreeNode = observer(
     renderTypeIcon,
     renderArrowIcon,
   }: MobxTreeNodeProps<ID_TYPE, T>) => {
+    const renderTracker = useLocalObservable(() => ({
+      localRenderKey: getRandomInt(100000, 999999), // 6 digit random int
+      setRandomLocalRenderKey() {
+        this.localRenderKey = getRandomInt(100000, 999999);
+      },
+    }));
+
     const handleToggle = useCallback(
-      (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+      (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
         const expandStatus = !node.isExpanded;
 
-        onToggle?.(node, expandStatus);
+        onToggle?.({
+          node,
+          value: expandStatus,
+          e,
+          rerender: renderTracker.setRandomLocalRenderKey,
+        });
 
-        expandStatus ? onExpand?.(node) : onCollapse?.(node);
+        expandStatus
+          ? onExpand?.({ node, e, rerender: renderTracker.setRandomLocalRenderKey })
+          : onCollapse?.({ node, e, rerender: renderTracker.setRandomLocalRenderKey });
       },
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,25 +88,29 @@ export const MobxTreeNode = observer(
     );
 
     return (
-      <div className="pulexui-mobx-tree-node">
+      <div className="pulexui-mobx-tree-node" key={renderTracker.localRenderKey}>
         <div
           className={`pulexui-mobx-tree-node-content flex-help ${nodeClassName ?? ''} ${
             node.isSelected ? 'pulexui-mobx-tree-node-content-selected' : ''
           }`}
           style={{ padding: compact ? 0 : 5, paddingLeft: localDepth * 10, whiteSpace: 'nowrap' }}
-          onClick={() => onClick?.(node)}
-          onContextMenu={e => onContextMenu?.(e, node)}
+          onClick={e => {
+            onClick?.({ node, e, rerender: renderTracker.setRandomLocalRenderKey });
+          }}
+          onContextMenu={e =>
+            onContextMenu?.({ node, e, rerender: renderTracker.setRandomLocalRenderKey })
+          }
         >
           {node.isFile ? (
-            <span style={{ marginLeft: '20px' }}></span>
+            <div style={{ marginLeft: '20px' }}></div>
           ) : (
-            <span
+            <div
               className="flex-help"
               onClick={handleToggle}
               style={{ cursor: 'pointer', width: '20px', justifyContent: 'center' }}
             >
               <RenderArrowIcon node={node} renderArrowIcon={renderArrowIcon} />
-            </span>
+            </div>
           )}
 
           <span className="flex-help">

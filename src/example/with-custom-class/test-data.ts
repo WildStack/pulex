@@ -9,6 +9,7 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
       isSelected: false,
       isExpanded: false,
       isFile: false,
+      customActiveIcon: 'folder',
       children: [
         CustomMobxTreeModelFactory.create({
           id: 4509,
@@ -41,7 +42,7 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
       name: 'Chat Rooms',
       isFile: false,
       children: [
-        {
+        CustomMobxTreeModelFactory.create({
           id: 1681,
           name: 'General',
           isSelected: false,
@@ -70,7 +71,7 @@ export const initialData = (): IObservableArray<CustomMobxTreeModel> => {
               isFile: true,
             }),
           ],
-        },
+        }),
         CustomMobxTreeModelFactory.create({
           id: 4922,
           name: 'Random',

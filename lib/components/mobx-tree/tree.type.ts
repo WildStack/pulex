@@ -1,33 +1,40 @@
+import { Combine } from '../../utils/types';
 import { MobxTreeModel } from './tree.model';
 
-export interface MobxTreeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> {
+export type MobxTreeNodeParamExport<T> = {
+  node: T;
+  e: React.MouseEvent<HTMLDivElement, MouseEvent>;
+  rerender: () => void;
+};
+
+export type MobxTreeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> = {
   nodes: T[];
 
   className?: string;
   nodeClassName?: string;
   compact?: boolean;
 
-  onClick?: (node: T) => void;
-  onToggle?: (node: T, value: boolean) => void;
-  onExpand?: (node: T) => void;
-  onCollapse?: (node: T) => void;
-  onContextMenu?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, node: T) => void;
+  onClick?: (params: MobxTreeNodeParamExport<T>) => void;
+  onToggle?: (params: Combine<MobxTreeNodeParamExport<T>, { value: boolean }>) => void;
+  onExpand?: (params: MobxTreeNodeParamExport<T>) => void;
+  onCollapse?: (params: MobxTreeNodeParamExport<T>) => void;
+  onContextMenu?: (params: MobxTreeNodeParamExport<T>) => void;
   renderTypeIcon?: (node: T) => JSX.Element;
   renderArrowIcon?: (node: T) => JSX.Element;
-}
+};
 
-export interface MobxTreeNodeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> {
+export type MobxTreeNodeProps<ID_TYPE, T extends MobxTreeModel<ID_TYPE>> = {
   node: T;
 
   compact?: boolean;
   nodeClassName?: string;
   localDepth: Readonly<number>; // only for tree node
 
-  onClick?: (node: T) => void;
-  onToggle?: (node: T, value: boolean) => void;
-  onExpand?: (node: T) => void;
-  onCollapse?: (node: T) => void;
-  onContextMenu?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, node: T) => void;
+  onClick?: (params: MobxTreeNodeParamExport<T>) => void;
+  onToggle?: (params: Combine<MobxTreeNodeParamExport<T>, { value: boolean }>) => void;
+  onExpand?: (params: MobxTreeNodeParamExport<T>) => void;
+  onCollapse?: (params: MobxTreeNodeParamExport<T>) => void;
+  onContextMenu?: (params: MobxTreeNodeParamExport<T>) => void;
   renderTypeIcon?: (node: T) => JSX.Element;
   renderArrowIcon?: (node: T) => JSX.Element;
-}
+};

@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts';
-import checker from 'vite-plugin-checker';
+import { checker } from 'vite-plugin-checker';
 import { resolve } from 'path';
 import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
@@ -12,7 +12,6 @@ export default defineConfig(({ mode }) => {
   console.log(envs);
   console.log('='.repeat(50));
 
-  const isDev = mode !== 'production';
   const debugWatchBuild = envs?.VITE_DEBUG_WATCH_BUILD === 'true';
 
   return {
@@ -32,7 +31,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     build: {
-      ...(debugWatchBuild && isDev && { watch: { clearScreen: true } }),
+      ...(debugWatchBuild && { watch: { clearScreen: true } }),
 
       lib: {
         entry: resolve(__dirname, 'lib/main.ts'),
