@@ -4,7 +4,7 @@
 npm i @pulexui/core
 ```
 
-###### Inspired from daphnia pulex (microscopic water flea)
+###### Inspired from daphnia pulex
 ![ImageAlt](https://github.com/WildStack/pulex/blob/master/readme/logo.png?raw=true)
 
 ### components
